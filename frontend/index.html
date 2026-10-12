@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Bill Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛒 Shopping Bill Calculator</h1>
+            <p>Manage your shopping bills efficiently</p>
+        </header>
+
+        <main>
+            <!-- Bills Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Bills Management</h2>
+                    <button class="btn btn-primary" onclick="toggleCreateBillForm()">+ New Bill</button>
+                </div>
+
+                <!-- Create Bill Form -->
+                <div id="createBillForm" class="form-container hidden">
+                    <h3>Create New Bill</h3>
+                    <form onsubmit="createBill(event)">
+                        <div class="form-group">
+                            <label for="billNumber">Bill Number:</label>
+                            <input type="text" id="billNumber" placeholder="e.g., BILL-001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerName">Customer Name:</label>
+                            <input type="text" id="customerName" placeholder="Enter customer name" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Create Bill</button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleCreateBillForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Bills List -->
+                <div id="billsList" class="bills-container">
+                    <p class="loading">Loading bills...</p>
+                </div>
+            </section>
+
+            <!-- Bill Details Section -->
+            <section class="section" id="billDetailsSection" style="display: none;">
+                <div class="section-header">
+                    <h2>Bill Details: <span id="billTitle"></span></h2>
+                    <button class="btn btn-secondary" onclick="closeBillDetails()">Back to Bills</button>
+                </div>
+
+                <!-- Add Item Form -->
+                <div class="form-container">
+                    <h3>Add Item to Bill</h3>
+                    <form onsubmit="addItem(event)">
+                        <div class="form-group">
+                            <label for="itemName">Item Name:</label>
+                            <input type="text" id="itemName" placeholder="e.g., Apple" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="itemQuantity">Quantity:</label>
+                                <input type="number" id="itemQuantity" placeholder="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemPrice">Unit Price:</label>
+                                <input type="number" id="itemPrice" placeholder="0.00" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Add Item</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Items List -->
+                <div id="itemsList" class="items-container">
+                    <p class="loading">Loading items...</p>
+                </div>
+
+                <!-- Bill Summary -->
+                <div class="bill-summary">
+                    <h3>Bill Summary</h3>
+                    <div class="summary-row">
+                        <span>Total Items:</span>
+                        <span id="totalItems">0</span>
+                    </div>
+                    <div class="summary-row highlight">
+                        <span>Total Amount:</span>
+                        <span id="totalAmount">$0.00</span>
+                    </div>
+                    <div class="summary-actions">
+                        <button class="btn btn-warning" onclick="editCurrentBill()">Edit Bill</button>
+                        <button class="btn btn-danger" onclick="deleteCurrentBill()">Delete Bill</button>
+                        <button class="btn btn-info" onclick="printBill()">Print Bill</button>
+                    </div>
+                </div>
+
+                <!-- Edit Bill Modal -->
+                <div id="editBillModal" class="modal hidden">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeEditBillModal()">&times;</span>
+                        <h3>Edit Bill</h3>
+                        <form onsubmit="submitEditBill(event)">
+                            <div class="form-group">
+                                <label for="editCustomerName">Customer Name:</label>
+                                <input type="text" id="editCustomerName" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">Update Bill</button>
+                                <button type="button" class="btn btn-secondary" onclick="closeEditBillModal()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Shopping Bill Calculator. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
